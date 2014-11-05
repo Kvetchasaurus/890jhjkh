@@ -123,6 +123,7 @@ def calculate_sum_distance(disease_list):
 
 
 def random_rows(df, n):
+    ''' okokokok '''
     return df.ix[np.random.choice(df.index, n)]
     
     
@@ -159,23 +160,19 @@ def Symptoms(L):
     #abcd = merge(ok,sum_dist, on='Disease')
     
     if len(L)<3:
-        WP,WMatt,WMatched = WagesI
-        kk['master_score'] = ( (WP*kk['Propability'].values/100) +   (WMatt*kk['matthews_sim'])  + (WMatched*kk['matched']/len(L)) )
-        kk = kk.sort(columns='master_score', ascending = False)[:25]
-        rnd = random_rows(kk, 7)
+        WP,WMatt,WMatched = WagesI    
         
     elif len(L)== 3:
         WP,WMatt,WMatched = WagesII
-        kk['master_score'] = ( (WP*kk['Propability'].values/100) +   (WMatt*kk['matthews_sim'])  + (WMatched*kk['matched']/len(L)) )
-        kk = kk.sort(columns='master_score', ascending = False)[:25]
-        rnd = random_rows(kk, 7)
         
     else:
         WP,WMatt,WMatched = WagesIII
-        kk['master_score'] = ( (WP*kk['Propability'].values/100) +   (WMatt*kk['matthews_sim'])  + (WMatched*kk['matched']/len(L)) )
-        kk = kk.sort(columns='master_score', ascending = False)[:25]
-        rnd = random_rows(kk, 7)
-        
+                
+
+    kk['master_score'] = ( (WP*kk['Propability'].values/100) +   (WMatt*kk['matthews_sim'])  + (WMatched*kk['matched']/len(L)) )
+    kk = kk.sort(columns='master_score', ascending = False)[:25]
+    rnd = random_rows(kk, 7)   
+    
     return rnd,kk
 
    

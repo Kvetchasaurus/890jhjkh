@@ -126,29 +126,31 @@ def random_rows(df, n):
     return df.ix[np.random.choice(df.index, n)]
     
     
-#L = ['fever']
+
+
+
+   
+    
+
 def Symptoms(L):
-    Wages = (0.5,0.5,0.4)
+    WagesI = (0.66,0.5,0.33)
+    WagesII = (0.5,0.5,0.5)
+    WagesIII = (0.33,0.5,0.66)
 
     symp_wek= create_symptoms_vector(L, numeric.index.values)
     
-    
     simi = calculate_similarities(symp_wek,numeric)
-    
     
     disease_list = get_all_diseases_with_symptoms(L,A)
     
     all_symptoms = get_all_symptoms_from_disease_list(disease_list,A)
     
-    
     kk = merge_and_calculate(A,simi)
     
     kk = kk.sort(columns=['matthews_sim','Propability'], ascending = [0,0])
     
-    #dropping rows with symptoms in initial list.
+    #drop symptoms that are in L
     kk = kk[kk.Symptoms.isin(L) != 1]
-
-
     
     #ok = calculate_rolling_distance(kk)
     #
@@ -156,51 +158,27 @@ def Symptoms(L):
     #
     #abcd = merge(ok,sum_dist, on='Disease')
     
-    
-    WP,WMatt,WMatched = Wages
-    
-    
-    kk['master_score'] = ( (WP*kk['Propability'].values/100) +   (WMatt*kk['matthews_sim'])  + (WMatched*kk['matched']/len(L)) )
-    kk = kk.sort(columns='master_score', ascending = False)[:25]
-    
-    rnd = random_rows(kk, 7)
-    
+    if len(L)<3:
+        WP,WMatt,WMatched = WagesI
+        kk['master_score'] = ( (WP*kk['Propability'].values/100) +   (WMatt*kk['matthews_sim'])  + (WMatched*kk['matched']/len(L)) )
+        kk = kk.sort(columns='master_score', ascending = False)[:25]
+        rnd = random_rows(kk, 7)
+        
+    elif len(L)== 3:
+        WP,WMatt,WMatched = WagesII
+        kk['master_score'] = ( (WP*kk['Propability'].values/100) +   (WMatt*kk['matthews_sim'])  + (WMatched*kk['matched']/len(L)) )
+        kk = kk.sort(columns='master_score', ascending = False)[:25]
+        rnd = random_rows(kk, 7)
+        
+    else:
+        WP,WMatt,WMatched = WagesIII
+        kk['master_score'] = ( (WP*kk['Propability'].values/100) +   (WMatt*kk['matthews_sim'])  + (WMatched*kk['matched']/len(L)) )
+        kk = kk.sort(columns='master_score', ascending = False)[:25]
+        rnd = random_rows(kk, 7)
+        
     return rnd,kk
 
-
-def generate_common_symptoms():
-    pass
-    
-    
-
-
-
    
-
-    
-
-        
-        
-        
-    
-        #generate static or based onf propa
-    
-#elif location and not list_of_symptoms
-        
-            
-            
-        
-    
-
-
-
-
-
-#    
-#L = ['fever','sore throat']
-#
-#a,b = Symptoms(L,Wages)
-#    
 
 
 

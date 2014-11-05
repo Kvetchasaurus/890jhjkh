@@ -159,6 +159,16 @@ def Symptoms(L):
     #
     #abcd = merge(ok,sum_dist, on='Disease')
     
+        uni=[]
+    for x in kk['Disease']:
+        if x not in uni:
+            uni.append(x)
+     
+     for y in uni:
+         ss = kk[kk['Disease']==y]
+         uu = 
+            
+    
     if len(L)<3:
         WP,WMatt,WMatched = WagesI    
         
